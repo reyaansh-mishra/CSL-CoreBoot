@@ -1,0 +1,17 @@
+--target=aarch64-none-elf
+-ffreestanding
+-nostdinc++
+-Wall
+-Wextra
+-fno-unwind-tables
+-fno-asynchronous-unwind-tables
+-Wnewline-eof
+-Werror
+
+-Iincludes/
+
+-fno-exceptions
+-fno-stack-protector
+-fno-rtti
+-MMD
+-MP
