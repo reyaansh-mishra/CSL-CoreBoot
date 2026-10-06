@@ -9,6 +9,9 @@
 -Werror
 
 -Iincludes/
+-Iincludes/csl
+-Iincludes/Uefi
+-Iincludes/Uefi/AArch64
 
 -fno-exceptions
 -fno-stack-protector

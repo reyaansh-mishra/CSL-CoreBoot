@@ -12,6 +12,8 @@ SRC_DIR="src"
 
 BIN_NAME="paxon.efi"
 
+ENTRY="csl_bootstrap"
+
 pkill qemu-system-aar || true
 
 COMMON_FLAGS=(
@@ -22,16 +24,16 @@ COMMON_FLAGS=(
     -fno-unwind-tables
     -fno-asynchronous-unwind-tables
     -Werror
-    -g -gdwarf
+    -g
+    -gdwarf
     
     -Wno-unused-variable
     -Wno-c++17-extensions
 
     -Iincludes
-    -Iincludes/CSL
-    -Iincludes/CSL/specific-includes
-    -Iincludes/uefi-headers
-    -Iincludes/uefi-headers/AArch64
+    -Iincludes/csl
+    -Iincludes/Uefi
+    -Iincludes/Uefi/AArch64
 )
 
 CFLAGS=(
@@ -60,7 +62,7 @@ ASFLAGS=(
 LD=(
     ld.lld
     -m arm64pe
-    --entry=csl_bootstrap
+    --entry=$ENTRY
 )
 
 
@@ -97,7 +99,7 @@ while IFS= read -r -d '' obj; do
     OBJS+=("$obj")
 done < <(find build -type f -name '*.o' -print0)
 
-"${LD[@]}" "${OBJS[@]}" -o $BIN_NAME
+"${LD[@]}" "${OBJS[@]}" csl.lib -o $BIN_NAME
 
 echo "[UEFI] Patching PE subsystem → EFI_APPLICATION"
 

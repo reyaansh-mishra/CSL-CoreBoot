@@ -1,0 +1,1 @@
+void vector_table();
